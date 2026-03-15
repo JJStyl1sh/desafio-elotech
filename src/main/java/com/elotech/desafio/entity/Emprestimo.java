@@ -22,7 +22,7 @@ public class Emprestimo {
     private Long id;
 
     @NotNull(message = "O ID do usuário é obrigatório")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id", nullable = false)
     private Usuario usuario;
 
