@@ -4,6 +4,7 @@ import com.elotech.desafio.dto.UsuarioRequestDTO;
 import com.elotech.desafio.dto.UsuarioResponseDTO;
 import com.elotech.desafio.entity.Usuario;
 import com.elotech.desafio.service.UsuarioService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<UsuarioResponseDTO> criaUsuario(@RequestBody UsuarioRequestDTO requestDTO){
+    public ResponseEntity<UsuarioResponseDTO> criaUsuario(@Valid @RequestBody UsuarioRequestDTO requestDTO){
 
            Usuario usuarioNovo = usuarioService.criarUsuario(requestDTO);
 
@@ -36,7 +37,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UsuarioResponseDTO> atualizaUsuario(@PathVariable Long id, @RequestBody UsuarioRequestDTO requestDTO){
+    public ResponseEntity<UsuarioResponseDTO> atualizaUsuario(@PathVariable Long id, @Valid @RequestBody UsuarioRequestDTO requestDTO){
 
 
             Usuario usuarioAtt = usuarioService.editaUsuario(id, requestDTO);

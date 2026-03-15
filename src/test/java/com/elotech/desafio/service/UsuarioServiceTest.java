@@ -1,7 +1,6 @@
 package com.elotech.desafio.service;
 
 import com.elotech.desafio.dto.UsuarioRequestDTO;
-import com.elotech.desafio.dto.UsuarioResponseDTO;
 import com.elotech.desafio.entity.Usuario;
 import com.elotech.desafio.repository.UsuarioRepository;
 import org.junit.jupiter.api.Test;
@@ -9,7 +8,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.util.Assert;
 
 import java.time.LocalDate;
 import java.util.Optional;
