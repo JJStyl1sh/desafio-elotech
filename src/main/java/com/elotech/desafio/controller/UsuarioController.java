@@ -6,6 +6,9 @@ import com.elotech.desafio.entity.Usuario;
 import com.elotech.desafio.service.UsuarioService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +37,17 @@ public class UsuarioController {
             return ResponseEntity.ok(new UsuarioResponseDTO(usuarioEncontrado.getId(), usuarioEncontrado.getNome(),
                     usuarioEncontrado.getEmail(), usuarioEncontrado.getDataCadastro(), usuarioEncontrado.getTelefone()));
 
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<UsuarioResponseDTO>> listaUsuarios(@PageableDefault(size = 10, sort = "id")Pageable pageable){
+
+        Page<Usuario> usuarios = usuarioService.listaUsuarios(pageable);
+
+        Page<UsuarioResponseDTO> responseDTO = usuarios.map(usuario -> new UsuarioResponseDTO(usuario.getId(), usuario.getNome(),
+                usuario.getEmail(), usuario.getDataCadastro(), usuario.getTelefone()));
+
+        return ResponseEntity.ok(responseDTO);
     }
 
     @PutMapping("/{id}")

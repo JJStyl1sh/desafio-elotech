@@ -6,10 +6,13 @@ import com.elotech.desafio.entity.Livro;
 import com.elotech.desafio.service.LivroService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,6 +38,23 @@ public class LivroController {
 
         return ResponseEntity.ok(new LivroResponseDTO(livro.getId(), livro.getTitulo(),
                 livro.getAutor(), livro.getIsbn(), livro.getDataPublicacao(), livro.getCategoria()));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<LivroResponseDTO>> listaLivros(@PageableDefault(size = 10, sort = "id") Pageable pageable){
+
+        Page<Livro> recomendacoes = livroService.listaLivros(pageable);
+
+        Page<LivroResponseDTO> responseDTO = recomendacoes.map(livro ->  new LivroResponseDTO(
+                livro.getId(),
+                livro.getTitulo(),
+                livro.getAutor(),
+                livro.getIsbn(),
+                livro.getDataPublicacao(),
+                livro.getCategoria()
+        ));
+
+        return ResponseEntity.ok(responseDTO);
     }
 
     @GetMapping("/recomendacoes/{id}")

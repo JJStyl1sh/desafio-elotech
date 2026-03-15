@@ -9,9 +9,11 @@ import com.elotech.desafio.repository.EmprestimoRepository;
 import com.elotech.desafio.repository.LivroRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+import org.springframework.data.domain.Pageable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -103,6 +105,10 @@ public class LivroService {
 
         livroRepository.delete(livroDeletado);
 
+    }
+
+    public Page<Livro> listaLivros(Pageable pageable){
+        return livroRepository.findAll(pageable);
     }
 
     public List<Livro> recomendaLivro(Long usuarioId){

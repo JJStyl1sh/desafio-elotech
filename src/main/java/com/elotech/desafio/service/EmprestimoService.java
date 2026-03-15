@@ -7,10 +7,11 @@ import com.elotech.desafio.entity.Livro;
 import com.elotech.desafio.entity.Usuario;
 import com.elotech.desafio.repository.EmprestimoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import org.springframework.data.domain.Pageable;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -49,5 +50,9 @@ public class EmprestimoService {
         emprestimoPraAtualizar.setDataDevolucao(requestDTO.dataDevolucao());
 
         return emprestimoRepository.save(emprestimoPraAtualizar);
+    }
+
+    public Page<Emprestimo> listaEmprestimos(Pageable pageable){
+        return emprestimoRepository.findAll(pageable);
     }
 }

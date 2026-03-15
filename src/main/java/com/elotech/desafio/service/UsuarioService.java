@@ -4,6 +4,8 @@ import com.elotech.desafio.dto.UsuarioRequestDTO;
 import com.elotech.desafio.entity.Usuario;
 import com.elotech.desafio.repository.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -34,6 +36,11 @@ public class UsuarioService {
 
         return usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
 
+    }
+
+    public Page<Usuario> listaUsuarios(Pageable pageable){
+
+        return usuarioRepository.findAll(pageable);
     }
 
     public Usuario editaUsuario(Long id, UsuarioRequestDTO requestDTO){
