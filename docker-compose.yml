@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: elotech-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 0433
+
+  backend:
+    build: .
+    container_name: elotech-api
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=0433
+      # Cole a chave aqui:
+      - GOOGLE_BOOKS_API_KEY=COLE_SUA_CHAVE_AQUI
+
+  frontend:
+    build: ./frontend-elotech
+    container_name: elotech-web
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
