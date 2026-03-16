@@ -36,8 +36,8 @@ Sistema de gestão de biblioteca com cadastro de livros, usuários, empréstimos
 ### 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/desafio-elotech-api.git
-cd desafio-elotech-api
+git clone https://github.com/seu-usuario/desafio-elotech.git
+cd desafio-elotech
 ```
 
 ### 2. Configure a chave do Google Books
